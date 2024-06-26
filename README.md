@@ -58,3 +58,72 @@ Pour passer à la branche with-auth, utilisez :
 ```bash
 git checkout with-auth
 ```
+
+# Le modèle de données
+
+1. Les données d'une tache
+
+```typescript
+class Task {
+  // identifiant de la tache
+  id?: number;
+  // nom de la tache
+  title: string;
+  // description de la tache
+  content: string;
+  // priorité de la tache
+  priority: string;
+  // couleur de la tache
+  color: string;
+  // date de création de la tache
+  createdAt: Date;
+  // date de modification de la tache
+  updatedAt: Date;
+  // date de la tache
+  dueDate: Date;
+}
+```
+
+2. Les données à renseigner pour la création d'une tache
+
+```typescript
+class CreateTaskDto {
+  // nom de la tache
+  // requise
+  title: string;
+  // description de la tache
+  // requise
+  content: string;
+  // priorité de la tache
+  // requise
+  priority: string;
+  // couleur de la tache
+  // requise
+  color: string;
+  // date de la tache
+  // non requise
+  dueDate: Date;
+}
+```
+
+3. Les données à renseigner pour la mise à jour  d'une tache
+
+```typescript
+class UpdateTaskDto {
+  // nom de la tache
+  // non requise
+  title: string;
+  // description de la tache
+  // non requise
+  content: string;
+  // priorité de la tache
+  // non requise
+  priority: string;
+  // couleur de la tache
+  // non requise
+  color: string;
+  // date de la tache
+  // non requise
+  dueDate: Date;
+}
+```
