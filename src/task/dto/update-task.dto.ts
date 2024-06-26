@@ -1,0 +1,28 @@
+import { PartialType } from '@nestjs/mapped-types';
+import { CreateTaskDto, Priority } from './create-task.dto';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class UpdateTaskDto extends PartialType(CreateTaskDto) {
+  @ApiProperty({
+    example: 'title',
+    required: false,
+  })
+  title?: string;
+  @ApiProperty({
+    example: 'content',
+    required: false,
+  })
+  content?: string;
+  @ApiProperty({ example: 'High', required: false, enum: Priority })
+  priority?: Priority;
+  @ApiProperty({
+    example: 'color',
+    required: false,
+  })
+  color?: string;
+  @ApiProperty({
+    type: Date,
+    required: false,
+  })
+  dueDate: Date;
+}

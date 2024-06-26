@@ -1,0 +1,69 @@
+import { ApiProperty } from '@nestjs/swagger';
+import { Column, Table, Model, DataType } from 'sequelize-typescript';
+
+@Table({ tableName: 'tasks' })
+export class Task extends Model {
+  @ApiProperty({
+    type: Number,
+    required: false,
+  })
+  id?: number;
+
+  @ApiProperty({
+    type: String,
+    required: false,
+  })
+  @Column
+  title: string;
+  @ApiProperty({
+    type: String,
+    required: false,
+  })
+  @Column
+  content: string;
+  @ApiProperty({
+    type: String,
+    required: false,
+  })
+  @Column
+  priority: string;
+  @ApiProperty({
+    type: String,
+    required: false,
+  })
+  @Column
+  color: string;
+
+  @ApiProperty({
+    type: Date,
+    required: false,
+  })
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+    defaultValue: DataType.NOW,
+  })
+  createdAt: Date;
+
+  @ApiProperty({
+    type: Date,
+    required: false,
+  })
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+    defaultValue: DataType.NOW,
+  })
+  updatedAt: Date;
+
+  @ApiProperty({
+    type: Date,
+    required: false,
+  })
+  @Column({
+    type: DataType.DATE,
+    allowNull: true,
+    defaultValue: DataType.NOW,
+  })
+  dueDate: Date;
+}
