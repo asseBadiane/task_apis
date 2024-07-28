@@ -5,14 +5,16 @@ import {
   Body,
   Patch,
   Param,
+  Headers,
   Delete,
 } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Task } from './entities/task.entity';
 
+@ApiBearerAuth()
 @ApiTags('Task')
 @Controller('task')
 export class TaskController {
@@ -24,27 +26,39 @@ export class TaskController {
     description: 'The record has been successfully created.',
     type: Task,
   })
-  create(@Body() createTaskDto: CreateTaskDto) {
-    return this.taskService.create(createTaskDto);
+  create(
+    @Headers('Authorization') auth: string,
+    @Body() createTaskDto: CreateTaskDto,
+  ) {
+    const jwt = auth.replace('Bearer ', '');
+    return this.taskService.create(jwt, createTaskDto);
   }
 
   @Get()
-  findAll() {
-    return this.taskService.findAll();
+  findAll(@Headers('Authorization') auth: string) {
+    const jwt = auth.replace('Bearer ', '');
+    return this.taskService.findAll(jwt);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.taskService.findOne(+id);
+  findOne(@Headers('Authorization') auth: string, @Param('id') id: string) {
+    const jwt = auth.replace('Bearer ', '');
+    return this.taskService.findOne(jwt, +id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTaskDto: UpdateTaskDto) {
-    return this.taskService.update(+id, updateTaskDto);
+  update(
+    @Headers('Authorization') auth: string,
+    @Param('id') id: string,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ) {
+    const jwt = auth.replace('Bearer ', '');
+    return this.taskService.update(jwt, +id, updateTaskDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.taskService.remove(+id);
+  remove(@Headers('Authorization') auth: string, @Param('id') id: string) {
+    const jwt = auth.replace('Bearer ', '');
+    return this.taskService.remove(jwt, +id);
   }
 }

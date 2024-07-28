@@ -25,4 +25,9 @@ export class UpdateTaskDto extends PartialType(CreateTaskDto) {
     required: false,
   })
   dueDate: Date;
+  @ApiProperty({
+    type: Number,
+    required: false,
+  })
+  userId: number;
 }

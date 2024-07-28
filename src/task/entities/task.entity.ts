@@ -66,4 +66,14 @@ export class Task extends Model {
     defaultValue: DataType.NOW,
   })
   dueDate: Date;
+  @ApiProperty({
+    type: Number,
+    required: false,
+  })
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+    defaultValue: 1,
+  })
+  userId?: number;
 }
